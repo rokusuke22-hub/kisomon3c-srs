@@ -23,12 +23,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
 // ========================================
-// SRSテンプレート本体 v2.0（config.js参照版）
-// 作成日時: 2026-03-26T01:00:00+09:00
+// SRSテンプレート本体 v2.1（config.js参照版）
+// 作成日時: 2026-04-19T15:30:00+09:00
 // ========================================
 // ★ 教材展開時にこのファイルは編集不要。
 //   全ての教材固有設定は config.js (APP_CONFIG) に集約。
 // ========================================
+// v2.1: graduationDays動的対応 + TEMPLATE_VERSION表示追加
+// ========================================
+
+var TEMPLATE_VERSION = "v2.1";
 
 var { useState, useEffect, useCallback, useRef } = React;
 var CFG = APP_CONFIG, C = CFG.COLORS, L = CFG.LABELS;
@@ -261,7 +265,8 @@ function App(){
     var syncLabel=syncStatus==="syncing"?"\u540c\u671f\u4e2d...":syncStatus==="synced"?"\u2713 \u540c\u671f\u5b8c\u4e86":syncStatus==="offline"?"\u30aa\u30d5\u30e9\u30a4\u30f3":getGasUrl(settings)?"\u30af\u30e9\u30a6\u30c9\u63a5\u7d9a\u6e08":"";
     var syncColor=syncStatus==="synced"?C.statusOk:syncStatus==="offline"?C.statusError:C.statusMuted;
     return e("div",{style:S.page},syncDialog,
-      e("div",{style:{padding:"24px 0 16px",textAlign:"center"}},
+      e("div",{style:{padding:"24px 0 16px",textAlign:"center",position:"relative"}},
+        e("div",{style:{position:"absolute",top:8,right:0,fontSize:10,color:C.textMuted}},TEMPLATE_VERSION),
         e("div",{style:{fontSize:22,fontWeight:800,letterSpacing:3,color:C.textPrimary}},CFG.APP_NAME),
         e("div",{style:{fontSize:13,color:C.textSecondary,marginTop:6}},today()),
         syncLabel&&e("div",{style:{fontSize:11,color:syncColor,marginTop:4}},syncLabel)),
